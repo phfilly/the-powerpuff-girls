@@ -1,0 +1,23 @@
+.item-list-container {
+    margin: auto;
+    display: flex;
+
+    .item {
+        background-color: white;
+        border: 1px solid #eee;
+        padding: 10px;
+        border-radius: 5px;
+
+        &:hover {
+            border: 1px solid #000;
+        }
+
+        .link {
+            text-decoration: none;
+        }
+
+        .title {
+            text-align: center;
+        }
+    }
+}

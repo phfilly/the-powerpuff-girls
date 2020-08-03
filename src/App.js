@@ -1,5 +1,5 @@
 import React from 'react';
-import './App.css';
+import './App.scss';
 import MediaDetail from './components/media-detail/MediaDetail';
 import MediaContainer from './components/media-container/MediaContainer';
 import {
