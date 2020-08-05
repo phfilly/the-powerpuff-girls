@@ -1,0 +1,17 @@
+@import '../../App.scss';
+
+.back-link {
+    color: $secondary-color;
+    position: relative;
+    bottom: 10px;
+
+    &:before {
+        content: ' \003C ';
+    }
+}
+
+.sub-page {
+    background-color: #fff;
+    padding: 5px;
+    border-radius: 5px;
+}
