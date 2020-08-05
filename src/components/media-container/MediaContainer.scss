@@ -1,23 +1,50 @@
+@import '../../App.scss';
+
 .item-list-container {
-    margin: auto;
-    display: flex;
+
+    .link {
+        text-decoration: none;
+        color: #000;
+    }
 
     .item {
         background-color: white;
         border: 1px solid #eee;
-        padding: 10px;
+        padding: 5px;
         border-radius: 5px;
+        display: flex;
+        text-align: left;
+        text-decoration: none;
+
+        > div {
+            padding: 0px 5px;
+        }
 
         &:hover {
             border: 1px solid #000;
         }
 
-        .link {
-            text-decoration: none;
+        .title {
+            text-align: left;
+
+            .rating {
+                background-color: $primary-color;
+                padding: 5px;
+                border-radius: 3px;
+                color: #fff;
+                float: right;
+                margin-top: -5px;
+            }
         }
 
-        .title {
-            text-align: center;
+        .badge {
+            background-color: $primary-color;
+            padding: 5px;
+            border-radius: 3px;
+            color: #fff;
+            float: left;
+            margin: 5px;
+            font-size: 12px;
         }
     }
 }

@@ -1,52 +1,77 @@
 import React, { Component } from 'react';
-import { fetchMedia } from '../../api/Api';
+import { connect } from "react-redux";
 import { Link } from 'react-router-dom';
-import { ReactComponent as Loader } from '../../assets/loading-indicator.svg';
+import { fetchData } from '../../store/actions/actions';
 
 import './MediaContainer.scss';
 
 class MediaContainer extends Component {
-  state = {
-    item: [],
-    isLoading: true,
-    POWERPUFF_ID: 6771
-  };
 
-  async componentDidMount() {
-    const data = await fetchMedia(this.state.POWERPUFF_ID);
-
-    this.setState({ item: { ...data }, isLoading: false });
+  constructor(props) {
+    super(props)
   }
 
-  render() {
-    const { item, isLoading } = this.state;
-    let loader, mediaItem;
+  componentDidMount() {
+    this.props.getData();
+  }
 
-    console.log('data', item);
+  render () {
+    let loaderItem, mediaItem;
+    let { data, isLoading } = this.props;
+    let item = { ...data.data };
 
     if (isLoading) {
-      loader = <Loader />;
-    } else {
+      loaderItem = <p className="light-text">Loading...</p>;
+    } else if (!isLoading) {
       mediaItem =
-        <Link to={() => `media/${item.id}`} className="link">
+      <Link to={() => `media/${item.id}`} className="link">
+        <div className="item">
           <div>
-            <img src={item.image.medium} />
+            <img src={item.image.medium} alt="media-title" />
           </div>
           <div>
-            <h3 className="title">{item.name}</h3>
+            <h3 className="title">
+              <div className="rating">{item.rating.average}</div> {item.name}
+              <br/>
+              <small className="light-text">Premiered: {item.premiered}</small>
+            </h3>
+    
+            <p dangerouslySetInnerHTML={{ __html: item.summary }}></p>
+            {item.genres.map((genre, i) => (
+              <div className="badge">{genre}</div>
+            ))}
+    
           </div>
-        </Link>
+        </div>
+      </Link>
     }
 
     return (
       <div className="item-list-container">
-        <div>{loader}</div>
-        <div className="item">
-          {mediaItem}
-        </div>
+        {loaderItem}
+        {mediaItem}
       </div>
     )
   }
+
 }
 
-export default MediaContainer;
+const mapStateToProps = state => {
+  return {
+    data: state.media,
+    isLoading: state.media.isLoading
+  }
+};
+
+const mapDispatchToProps = dispatch => {
+  const MEDIA_ID = 6771;
+
+  return {
+    getData: () => dispatch(fetchData(`shows/${MEDIA_ID}`))
+  }
+}
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(MediaContainer);

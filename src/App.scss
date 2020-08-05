@@ -1,6 +1,18 @@
+$primary-color: #282c34;
+$secondary-color: #919191;
+
 .App {
     max-width: 980px;
     width: 100%;
     padding: 50px;
     margin: auto;
+}
+
+.small-text {
+    font-size: 11px;
+}
+
+.light-text {
+    color: $secondary-color;
+    font-size: 11px;
 }
