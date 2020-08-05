@@ -17,7 +17,7 @@ function App() {
           <Route exact path="/">
             <MediaContainer />
           </Route>
-          <Route path="/media/:id">
+          <Route path="/episode/:id">
             <MediaDetail />
           </Route>
           <Redirect to="/not-found" />

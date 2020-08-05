@@ -1,0 +1,28 @@
+.episode-container {
+    background-color: white;
+    border: 1px solid #eee;
+    border-radius: 5px;
+    margin: 5px 0px;
+
+    &> a, .season-header {
+        padding: 5px;
+        display: block;
+
+        &:nth-child(2n+1) {
+            background-color: #ebebeb;
+        }
+    }
+
+    .episode {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        transition: 1.25s ease all;
+        border-bottom: 0px;
+
+        &:hover {
+            border-bottom: 1px solid #000;
+            transition: 1.25s ease all;
+        }
+    }
+}

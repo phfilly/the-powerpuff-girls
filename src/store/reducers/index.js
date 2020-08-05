@@ -2,7 +2,8 @@ import { combineReducers } from "redux";
 
 const initState = {
     isLoading: true,
-    data: []
+    show: [],
+    episodes: []
 }
 
 const media = (state = initState, action) => {
@@ -10,7 +11,7 @@ const media = (state = initState, action) => {
         case 'FETCH_SERIES_SUCCESS':
             return {
                 ...state,
-                data: action.payload,
+                [action.payload.key]: action.payload,
                 isLoading: false
             };
         case 'FETCH_SERIES_DATA':

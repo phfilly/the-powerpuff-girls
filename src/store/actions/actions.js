@@ -9,17 +9,17 @@ export const fetchSeriesData = () => {
     }
 };
 
-export const fetchSeriesSuccess = (payload) => {
+export const fetchSeriesSuccess = (payload, key) => {
     return {
         type: FETCH_SERIES_SUCCESS,
-        payload
+        payload: { payload, key }
     }
 };
 
-export const fetchData = (endpoint) => {
+export const fetchData = (endpoint, key) => {
     return async dispatch => {
         dispatch(fetchSeriesData());
         const request = await api(endpoint);
-        dispatch(fetchSeriesSuccess(request));
+        dispatch(fetchSeriesSuccess(request, key));
     }
 }
