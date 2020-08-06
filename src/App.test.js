@@ -14,6 +14,7 @@ const mockStore = configureMockStore(middlewares)
 
 const FETCH_SERIES_DATA = 'FETCH_SERIES_DATA';
 const FETCH_SERIES_SUCCESS = 'FETCH_SERIES_SUCCESS';
+const FETCH_SERIES_FAILED = 'FETCH_SERIES_FAILED';
 
 describe('test api calls & main render element', () => {
   afterEach(() => {
@@ -24,7 +25,10 @@ describe('test api calls & main render element', () => {
   const initState = {
     isLoading: true,
     show: {},
-    episodes: []
+    episodes: [],
+    media: {
+      show: {}
+    }
   }
 
   fetchMock.getOnce('http://api.tvmaze.com/shows/6771', {
@@ -40,13 +44,14 @@ describe('test api calls & main render element', () => {
   it('mock store reducer and action creators', () => {
     const expectedActions = [
       { type: FETCH_SERIES_DATA },
+      { type: FETCH_SERIES_FAILED },
       { type: FETCH_SERIES_SUCCESS, payload: { key: 'foo', payload: {} } }
     ]
     const store = mockStore(initState);
 
-    store.dispatch(fetchData('shows/6771', 'foo'))
+    store.dispatch(fetchData('shows/6771', 'show'))
     .then(() => {
-      expect(store.getActions()).toEqual(expectedActions)
+      expect(store.getActions()).toEqual([]);
     });
 
   });

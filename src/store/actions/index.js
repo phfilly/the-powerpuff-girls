@@ -37,7 +37,7 @@ function shouldFetchData(state, key, endpoint) {
     } else {
         return true;
     }
-  }
+}
 
 export const fetchData = (endpoint, key) => {
     return async (dispatch, getState) => {
