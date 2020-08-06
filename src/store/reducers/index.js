@@ -2,8 +2,9 @@ import { combineReducers } from "redux";
 
 const initState = {
     isLoading: true,
-    show: {},
-    episodes: []
+    show: undefined,
+    episodes: undefined,
+    details: undefined
 }
 
 const media = (state = initState, action) => {

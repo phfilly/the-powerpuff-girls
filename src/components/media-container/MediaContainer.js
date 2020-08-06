@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from "react-redux";
 import { fetchData } from '../../store/actions';
-import store from '../../store/store';
 import EpisodeList from '../episode-list/EpisodeList';
 
 import './MediaContainer.scss';
@@ -11,21 +10,18 @@ class MediaContainer extends Component {
   constructor(props) {
     super(props);
 
-    const hasData = store.getState().media.show;
-    if (!hasData.key) {
-      this.props.getData();
-      this.props.getEpisodes();
-    }
+    this.props.getData();
+    this.props.getEpisodes();
   }
 
   render () {
     let loaderItem, mediaItem;
     let { data, isLoading } = this.props;
-    let item = { ...data.show.payload };
 
     if (isLoading) {
       loaderItem = <p className="light-text">Loading...</p>;
-    } else if (!isLoading) {
+    } else if (!isLoading && data.show) {
+      let item = { ...data.show.payload };
       mediaItem =
       <div>
           <div className="item">

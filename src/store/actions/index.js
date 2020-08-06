@@ -23,12 +23,30 @@ export const fetchSeriesFailed = () => {
     }
 }
 
+function isEpisodeDetailAlreadySaved(state, key, endpoint) {
+    const episodeId = endpoint.split('/')[1];
+    return state.media[key].payload.id === parseInt(episodeId) ? false : true;
+}
+
+function shouldFetchData(state, key, endpoint) {
+    if (!!state.media[key]) {
+        if (key === 'details') {
+            return isEpisodeDetailAlreadySaved(state, key, endpoint);
+        }
+        return false;
+    } else {
+        return true;
+    }
+  }
+
 export const fetchData = (endpoint, key) => {
-    return async dispatch => {
-        dispatch(startApiCall());
+    return async (dispatch, getState) => {
         try {
-            const request = await api(endpoint);
-            dispatch(fetchSeriesSuccess(request, key));
+            if (shouldFetchData(getState(), key, endpoint)) {
+                dispatch(startApiCall());
+                const request = await api(endpoint);
+                dispatch(fetchSeriesSuccess(request, key));
+            }
         } catch (e) {
             dispatch(fetchSeriesFailed());
         }

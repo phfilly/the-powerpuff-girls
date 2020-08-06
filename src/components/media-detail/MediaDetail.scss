@@ -2,12 +2,24 @@
 @import '../media-container/MediaContainer.scss';
 
 .back-link {
-    color: $secondary-color;
+    color: $primary-color;
     position: relative;
     bottom: 10px;
+    background-color: #fff;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+    transition: 0.5s ease all;
 
     &:before {
         content: ' \003C ';
+    }
+
+    &:hover {
+        cursor: pointer;
+        background-color: $primary-color;
+        transition: 0.5s ease all;
+        color: #fff;
     }
 }
 
@@ -15,4 +27,8 @@
     background-color: #fff;
     padding: 5px;
     border-radius: 5px;
+}
+
+.float-right {
+    float: right;
 }

@@ -1,7 +1,7 @@
 import React, { useEffect  } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { fetchData } from '../../store/actions';
-import { useParams, useHistory, useLocation } from 'react-router-dom';
+import { useParams, useHistory } from 'react-router-dom';
 
 import './MediaDetail.scss';
 
@@ -9,21 +9,20 @@ function MediaDetail() {
   const dispatch = useDispatch();
   const { episodeId } = useParams();
   let history = useHistory();
-  let location = useLocation();
 
-  let data = useSelector(state => state);
-  let { isLoading } = data.media;
+  let { media } = useSelector(state => state);
+  let { isLoading } = media;
 
   useEffect(() => {
     dispatch(fetchData(`episodes/${episodeId}`, 'details'));
-  },[location, dispatch]);
+  },[episodeId, dispatch]);
 
   function handleClick() {
     history.push("/");
   }
 
-  if (!isLoading && data.media.details) {
-    let { details } = data.media;
+  if (!isLoading && media.details) {
+    let { details } = media;
     return <div>
       <button type="button" className="back-link" onClick={handleClick}>Back</button>
       <div className="sub-page">
@@ -34,7 +33,8 @@ function MediaDetail() {
             </div>
             <div>
               <h3 className="title">
-                {details.payload.name}
+                {details.payload.number}. {details.payload.name}
+                <small className="light-text float-right">Premiered: {details.payload.airdate}</small>
               </h3>
               <p dangerouslySetInnerHTML={{ __html: details.payload.summary }}></p>
             </div>
