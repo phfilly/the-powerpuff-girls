@@ -21,6 +21,10 @@ function MediaDetail() {
     history.push("/");
   }
 
+  function getImage(details) {
+    return !details.payload ? 'https://rebels.io/static/logo-large-ed875e637e85ab1b72a268832112b1d1.png' : details.payload.image.medium;
+  }
+
   if (!isLoading && media.details) {
     let { details } = media;
     return <div>
@@ -29,7 +33,7 @@ function MediaDetail() {
         <div className="item-list-container">
           <div className="item">
             <div>
-              <img src={details.payload.image.medium} alt="episode" />
+              <img onError={getImage(details)} src={getImage(details)} alt="episode" />
             </div>
             <div>
               <h3 className="title">
