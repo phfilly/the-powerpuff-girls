@@ -2,7 +2,7 @@ import { combineReducers } from "redux";
 
 const initState = {
     isLoading: true,
-    show: [],
+    show: {},
     episodes: []
 }
 

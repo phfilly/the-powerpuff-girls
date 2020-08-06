@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from "react-redux";
+import { fetchData } from '../../store/actions';
 import store from '../../store/store';
-import { fetchData } from '../../store/actions/actions';
 import EpisodeList from '../episode-list/EpisodeList';
 
 import './MediaContainer.scss';
@@ -12,7 +12,7 @@ class MediaContainer extends Component {
     super(props);
 
     const hasData = store.getState().media.show;
-    if (!hasData.length) {
+    if (!hasData.key) {
       this.props.getData();
       this.props.getEpisodes();
     }

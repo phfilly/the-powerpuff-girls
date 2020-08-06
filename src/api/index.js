@@ -4,5 +4,6 @@ export const api = async (url) => {
     return await res.json();
   } catch (error) {
     console.error(error);
+    throw error;
   }
 }

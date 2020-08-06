@@ -1,32 +1,31 @@
 import React, { useEffect  } from 'react';
-import { Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import { fetchData } from '../../store/actions/actions';
-import { useParams } from 'react-router-dom';
-import store from '../../store/store';
+import { fetchData } from '../../store/actions';
+import { useParams, useHistory, useLocation } from 'react-router-dom';
 
 import './MediaDetail.scss';
 
 function MediaDetail() {
   const dispatch = useDispatch();
   const { episodeId } = useParams();
+  let history = useHistory();
+  let location = useLocation();
 
   let data = useSelector(state => state);
-  const hasData = store.getState().media.details;
   let { isLoading } = data.media;
 
   useEffect(() => {
-    if (!hasData) {
-      dispatch(fetchData(`episodes/${episodeId}`, 'details'));
-    }
-  },[hasData, dispatch]);
+    dispatch(fetchData(`episodes/${episodeId}`, 'details'));
+  },[location, dispatch]);
 
-  if (isLoading) {
-    return <p className="light-text">Loading...</p>;
-  } else if (!isLoading) {
+  function handleClick() {
+    history.push("/");
+  }
+
+  if (!isLoading && data.media.details) {
     let { details } = data.media;
     return <div>
-      <Link to="/" className="back-link">Back</Link>
+      <button type="button" className="back-link" onClick={handleClick}>Back</button>
       <div className="sub-page">
         <div className="item-list-container">
           <div className="item">
@@ -43,6 +42,8 @@ function MediaDetail() {
         </div>
       </div>
     </div>
+  } else {
+    return <p className="light-text">Loading...</p>;
   }
 }
 
