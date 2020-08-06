@@ -2,26 +2,24 @@ import React, { useEffect  } from 'react';
 import { Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { fetchData } from '../../store/actions/actions';
-import { useParams, useLocation } from 'react-router-dom'
+import { useParams } from 'react-router-dom';
+import store from '../../store/store';
 
 import './MediaDetail.scss';
 
 function MediaDetail() {
-  const { id } = useParams();
-  const location = useLocation();
-
   const dispatch = useDispatch();
+  const { episodeId } = useParams();
 
   let data = useSelector(state => state);
+  const hasData = store.getState().media.details;
   let { isLoading } = data.media;
 
   useEffect(() => {
-    if (!isLoading) {
-      dispatch(fetchData(`episodes/${id}`, 'details'));
+    if (!hasData) {
+      dispatch(fetchData(`episodes/${episodeId}`, 'details'));
     }
-  });
-
-  console.log(isLoading);
+  },[hasData, dispatch]);
 
   if (isLoading) {
     return <p className="light-text">Loading...</p>;
@@ -33,7 +31,7 @@ function MediaDetail() {
         <div className="item-list-container">
           <div className="item">
             <div>
-              <img src={details.payload.image.medium} alt="episode-image" />
+              <img src={details.payload.image.medium} alt="episode" />
             </div>
             <div>
               <h3 className="title">
