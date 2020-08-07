@@ -8,6 +8,7 @@ import './MediaDetail.scss';
 function MediaDetail() {
   const dispatch = useDispatch();
   const { episodeId } = useParams();
+  const fallbackImage = 'https://rebels.io/static/logo-large-ed875e637e85ab1b72a268832112b1d1.png';
   let history = useHistory();
 
   let { media } = useSelector(state => state);
@@ -21,19 +22,23 @@ function MediaDetail() {
     history.push("/");
   }
 
-  function getImage(details) {
-    return !details.payload ? 'https://rebels.io/static/logo-large-ed875e637e85ab1b72a268832112b1d1.png' : details.payload.image.medium;
-  }
-
   if (!isLoading && media.details) {
     let { details } = media;
+    let img;
+
+    if (!details.payload.image) {
+      img = <img src={fallbackImage} alt="episode cover" className="episode-image"/>;
+    } else {
+      img = <img src={details.payload.image.medium} alt="episode cover" className="episode-image"/>;
+    }
+
     return <div>
       <button type="button" className="back-link" onClick={handleClick}>Back</button>
       <div className="sub-page">
         <div className="item-list-container">
           <div className="item">
             <div>
-              <img onError={getImage(details)} src={getImage(details)} alt="episode" />
+              {img}
             </div>
             <div>
               <h3 className="title">
