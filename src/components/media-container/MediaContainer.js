@@ -16,12 +16,12 @@ class MediaContainer extends Component {
 
   render () {
     let loaderItem, mediaItem;
-    let { data, isLoading } = this.props;
+    const { data, isLoading } = this.props;
 
     if (isLoading) {
       loaderItem = <p className="light-text">Loading...</p>;
     } else if (!isLoading && data.show) {
-      let item = { ...data.show.payload };
+      const item = { ...data.show.payload };
       mediaItem =
       <div>
           <div className="item">

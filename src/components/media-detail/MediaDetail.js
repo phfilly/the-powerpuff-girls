@@ -9,10 +9,10 @@ function MediaDetail() {
   const dispatch = useDispatch();
   const { episodeId } = useParams();
   const fallbackImage = 'https://rebels.io/static/logo-large-ed875e637e85ab1b72a268832112b1d1.png';
-  let history = useHistory();
+  const history = useHistory();
 
-  let { media } = useSelector(state => state);
-  let { isLoading } = media;
+  const { media } = useSelector(state => state);
+  const { isLoading } = media;
 
   useEffect(() => {
     dispatch(fetchData(`episodes/${episodeId}`, 'details'));
@@ -23,15 +23,9 @@ function MediaDetail() {
   }
 
   if (!isLoading && media.details) {
-    let { details } = media;
-    let img;
-
-    if (!details.payload.image) {
-      img = <img src={fallbackImage} alt="episode cover" className="episode-image"/>;
-    } else {
-      img = <img src={details.payload.image.medium} alt="episode cover" className="episode-image"/>;
-    }
-
+    const { details } = media;
+    let img = !details.payload.image ? <img src={fallbackImage} alt="episode cover" className="episode-image"/> : <img src={details.payload.image.medium} alt="episode cover" className="episode-image"/>;
+    
     return <div>
       <button type="button" className="back-link" onClick={handleClick}>Back</button>
       <div className="sub-page">

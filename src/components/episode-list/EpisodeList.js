@@ -6,7 +6,7 @@ import './EpisodeList.scss';
 class EpisodeList extends Component {
 
   render() {
-    let { episodes } = this.props;
+    const { episodes } = this.props;
     let seasonHeading = 0;
 
     return <div className="episode-container">
