@@ -24,13 +24,7 @@ function MediaDetail() {
 
   if (!isLoading && media.details) {
     let { details } = media;
-    let img;
-
-    if (!details.payload.image) {
-      img = <img src={fallbackImage} alt="episode cover" className="episode-image"/>;
-    } else {
-      img = <img src={details.payload.image.medium} alt="episode cover" className="episode-image"/>;
-    }
+    const imgUrl = !details.payload.image ? fallbackImage : details.payload.image.medium;
 
     return <div>
       <button type="button" className="back-link" onClick={handleClick}>Back</button>
@@ -38,7 +32,7 @@ function MediaDetail() {
         <div className="item-list-container">
           <div className="item">
             <div>
-              {img}
+              <img src={imgUrl} alt="episode cover" className="episode-image"/>
             </div>
             <div>
               <h3 className="title">
