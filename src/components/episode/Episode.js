@@ -6,7 +6,7 @@ import '../episode-list/EpisodeList.scss';
 class Episode extends Component {
 
   render() {
-    let { episode } = this.props;
+    const { episode } = this.props;
 
     return (
         <Link to={() => `episode/${episode.id}`} className="link">

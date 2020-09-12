@@ -9,10 +9,10 @@ function MediaDetail() {
   const dispatch = useDispatch();
   const { episodeId } = useParams();
   const fallbackImage = 'https://rebels.io/static/logo-large-ed875e637e85ab1b72a268832112b1d1.png';
-  let history = useHistory();
+  const history = useHistory();
 
-  let { media } = useSelector(state => state);
-  let { isLoading } = media;
+  const { media } = useSelector(state => state);
+  const { isLoading } = media;
 
   useEffect(() => {
     dispatch(fetchData(`episodes/${episodeId}`, 'details'));
